@@ -6,13 +6,32 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useFetch } from "../hooks/useFetch";
 import HeaderButtonGroup from "./HeaderButtonGroup";
 import LoadingIndicator from "./LoadingIndicator";
+import { useArrSort, useArrSortToTop } from "../hooks/useArrSortToTop";
+import { useFindTargets } from '../hooks/useFindTargets';
 
 function Cats() {
   const [time, setTime] = useState(0);
+  const [nowY, setNowY] = useState(0);
+
   const [storedBreeds, storeBreeds] = useLocalStorage("breeds", []);
   const [storedPages, storePages] = useLocalStorage("fetchedPages", []);
-  
   const [currentPage, setCurrentPage] = useState(storedPages.length !== 0 ? storedPages[storedPages.length - 1] : 1);
+
+  // 나만의 커스텀 훅
+  const [arrs, sortToTop] = useArrSortToTop([5, 4, 1, 3, 2]);
+const [targetArr, findTargets] = useFindTargets(["one", "one", "one", "two"], "one");
+console.log(targetArr);
+console.log('before find targets');
+const b = findTargets()
+console.log('after find targets');
+console.log(targetArr);
+console.log(b);
+//   console.log("arrs start");
+//   console.log("arrs: ", arrs);
+//   console.log("arrs after");
+//   setArrs();
+//   console.log("arrs: ", arrs);
+
   const params = useMemo(
     () => ({
       page: currentPage,
@@ -20,7 +39,10 @@ function Cats() {
     }),
     [currentPage]
   );
+  const initialScrollY = 0;
+  //   console.log(window.scrollY);
   const { data: breeds, isLoading, hasError, error } = useFetch(`${catApiUrl}/breeds`, params, catHeaders, storedBreeds);
+  //   console.log(hasError);
   const handlePreviousPage = useCallback(() => {
     if (currentPage <= 1) {
       return;
