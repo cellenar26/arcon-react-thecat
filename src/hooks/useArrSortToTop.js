@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export function useArrSortToTop(initV) {
-    const [arrs, setArrs] = useState(() => {
+    const [arrs] = useState(() => {
         
         if (typeof initV !== 'object') {
             throw new Error("this hooks need only array")
