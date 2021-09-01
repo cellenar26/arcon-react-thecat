@@ -1,0 +1,18 @@
+.select-container {
+    position: relative;
+
+    .select-custom {
+        position: absolute;
+        top: 0;
+        left: 50px;
+        list-style: none;
+        border: 1px solid red;
+
+        li {
+            cursor: pointer;
+            &:hover {
+                background-color: aqua;
+            }
+        }
+    }
+}
