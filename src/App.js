@@ -11,17 +11,19 @@ import User from './User';
 import Navigation from './Navigation';
 import Sample from './function-components/Sample';
 import Sample2 from './function-components/Sample2';
+import Sample3 from './function-components/Sample3';
 
 function App() {
   const product = {
     name: 'awesome product',
     description: 'this is good',
-    price: 49000,
+    price: 49000
   }
   return (
     <div className="App">
       {/* <Sample /> */}
-      <Sample2 />
+      {/* <Sample2 /> */}
+      <Sample3 />
       {/* <main>
         <ErrorBoundary>
           <Product product={product} />
