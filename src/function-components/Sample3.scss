@@ -8,6 +8,10 @@
         display: flex;
         flex-direction: column;
 
+        input:focus {
+            outline: none;
+        }
+
         .gender-radio>input {
             margin-bottom: 20px;
         }

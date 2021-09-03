@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import "./Sample3.scss";
 
 const CARD_LENGTH = 16;
@@ -16,6 +16,12 @@ export default function Sample3() {
   const [userCardNo, setUserCardNo] = useState("");
   const [submitDisabled, setSubmitDisabled] = useState(true);
 
+  const [styleValidMail, setValidMail] = useState({border : "1px solid red"})
+  const [styleValidPhone, setStyleValidPhone] = useState({border: "1px solid red"})
+  const [styleValidAge, setStyleValidAge] = useState({border: "1px solid red"})
+  const [styleValidCardNo, setStyleValidCardNo] = useState({border: "1px solid red"})
+
+  const styleValidFailed = { border: "1px solid red" };
   const handleSubmit = (event) => {
     // role: validation 함수들의 결과가 모두 true 일 때만 submit 버튼의 disabled가 false로
     event.preventDefault();
@@ -32,7 +38,6 @@ export default function Sample3() {
   const handleValidationAll = (event) => {
     // console.log(" validation start");
     // // console.log(event.target.value);
-    
     // setSubmitDisabled(true);
     // console.log("email : ", validateEmail(userEmail));
     // console.log("email: ", userEmail);
@@ -41,32 +46,56 @@ export default function Sample3() {
     // console.log("card: ", userCardNo.length);
     // // console.log("forIsAllValidateDoneTemp: ", forIsAllValidateDoneTemp);
     // console.log("all validation clear");
-
   };
-useEffect(() => {
-    if (validateEmail(userEmail) === true) {
+  useEffect(() => {
+    if (validateEmail(userEmail) === false) {
+      setValidMail({border: '1px solid red'})
+    }
+    else {
+      setValidMail({border: ''})
+    }
 
+    if (validatePhone(userPhone) === false) {
+      setStyleValidPhone({border: '1px solid red'})
     }
-    if (validatePhone(userPhone) === true) {
+    else {
+      setStyleValidPhone({border: ''})
+    }
 
+    if (validateAge(userAge) === false) {
+      setStyleValidAge({border: '1px solid red'})
     }
-    if (validateAge(userAge) === true) {
- 
+    else {
+      setStyleValidAge({border: ''})
     }
-    if (validateCardNo(userCardNo) === true) {
 
+    if (validateCardNo(userCardNo) === false) {
+      setStyleValidCardNo({border: '1px solid red'})
     }
-    console.log('eamil : ', userEmail);
-    console.log('card : ', userCardNo);
+    else {
+      setStyleValidCardNo({border: ''})
+    }
+
     
-    if (validateEmail(userEmail) === true && validatePhone(userPhone) === true && validateAge(userAge)=== true && validateCardNo(userCardNo) === true) {
-        setSubmitDisabled(false);
-      }
-    
-    if (validateEmail(userEmail) === false || validatePhone(userPhone) === false || validateAge(userAge)=== false || validateCardNo(userCardNo) === false) {
-        setSubmitDisabled(true);
-      }
-},[userEmail, userPhone, userAge, userCardNo])
+
+    if (
+      validateEmail(userEmail) === true &&
+      validatePhone(userPhone) === true &&
+      validateAge(userAge) === true &&
+      validateCardNo(userCardNo) === true
+    ) {
+      setSubmitDisabled(false);
+    }
+
+    if (
+      validateEmail(userEmail) === false ||
+      validatePhone(userPhone) === false ||
+      validateAge(userAge) === false ||
+      validateCardNo(userCardNo) === false
+    ) {
+      setSubmitDisabled(true);
+    }
+  }, [userEmail, userPhone, userAge, userCardNo]);
   // return boolean
   const validateEmail = (email) => {
     const re =
@@ -76,7 +105,7 @@ useEffect(() => {
     if (re.test(String(email).toLowerCase()) === true) {
       // setSubmitDisabled(false);
       //   console.log(email);
-      console.log('email good');
+      console.log("email good");
       return true;
     } else {
       return false;
@@ -160,6 +189,7 @@ useEffect(() => {
             onChange={(event) => {
               setUserEmail(event.target.value);
             }}
+            style={styleValidMail}
             placeholder="abc@gmail.com"
           />
           <br />
@@ -170,6 +200,7 @@ useEffect(() => {
               setUserPhone(event.target.value);
               validatePhone(event.target.value);
             }}
+            style={styleValidPhone}
             placeholder="010-1234-5678"
           />
           <br />
@@ -177,6 +208,7 @@ useEffect(() => {
             type="text"
             value={userName}
             onChange={(event) => setUserName(event.target.value)}
+            // style={styleValidInput}
             placeholder="최장훈"
           />
           <br />
@@ -200,6 +232,7 @@ useEffect(() => {
               setUserAge(event.target.value);
               validateAge(event.target.value);
             }}
+            style={styleValidAge}
             placeholder="27"
           />
           <br />
@@ -210,6 +243,7 @@ useEffect(() => {
               setUserCardNo(event.target.value);
               validateCardNo(event.target.value);
             }}
+            style={styleValidCardNo}
             placeholder="1234567812345678"
             maxLength={CARD_LENGTH}
           />
