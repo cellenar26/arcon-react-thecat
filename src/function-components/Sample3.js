@@ -7,6 +7,8 @@ const CARD_LENGTH = 16;
 let isAllValidateDone = false;
 let forIsAllValidateDoneTemp = 0;
 
+
+
 export default function Sample3() {
   const [userEmail, setUserEmail] = useState("");
   const [userPhone, setUserPhone] = useState("");
@@ -35,6 +37,7 @@ export default function Sample3() {
     console.log(userCardNo);
     console.log("==========submit");
   };
+
   useEffect(() => {
     if (validateEmail(userEmail) === false) {
       setValidMail({border: '1px solid red'})
@@ -99,7 +102,7 @@ export default function Sample3() {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (re.test(String(email).toLowerCase()) === true) {
 
-      console.log("email good");
+      
       return true;
     } else {
       return false;
@@ -158,6 +161,8 @@ export default function Sample3() {
             onChange={(event) => {
               setUserEmail(event.target.value);
             }}
+            // 방문 여부 체크
+            // onFocus
             style={styleValidMail}
             placeholder="abc@gmail.com"
           />
